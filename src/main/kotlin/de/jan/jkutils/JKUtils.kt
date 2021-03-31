@@ -8,12 +8,17 @@ fun String.toDate(pattern: String) : Date {
     return formatter.parse(this)
 }
 
+fun Date.toFormattedString(pattern: String) : String {
+    val formatter = SimpleDateFormat(pattern)
+    return formatter.format(this)
+}
+
 fun Collection<String>.convertToString(separator: String = " ") : String {
     var string = ""
     val iterator = this.iterator()
     while(iterator.hasNext()) {
         val next = iterator.next()
-        string += next + separator
+        string += next + if(iterator.hasNext()) separator else ""
     }
     return string
 }
@@ -23,7 +28,7 @@ fun Array<String>.convertToString(separator: String = " ") : String {
     val iterator = this.iterator()
     while(iterator.hasNext()) {
         val next = iterator.next()
-        string += next + separator
+        string += next + if(iterator.hasNext()) separator else ""
     }
     return string
 }

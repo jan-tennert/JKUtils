@@ -1,5 +1,7 @@
 package de.jan.jkutils
 
+import org.json.JSONArray
+import org.json.JSONObject
 import java.io.File
 import java.io.InputStream
 import java.io.IOException
@@ -25,6 +27,18 @@ fun URL.downloadFile(outputFile: File) {
 fun URI.downloadFile(outputFile: File) {
     val url = URLDownloader()
     url.download(this.toString(), outputFile)
+}
+
+fun File.toJSONObject() : JSONObject {
+    return JSONObject(this.bufferedReader().use { it.readText() })
+}
+
+fun File.toJSONArray() : JSONArray {
+    return JSONArray(this.bufferedReader().use { it.readText() })
+}
+
+infix fun String.writeTo(file: File) {
+    file.writeText(this)
 }
 
 
